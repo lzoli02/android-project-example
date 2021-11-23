@@ -2,7 +2,7 @@ package com.zoltanlorinczi.project_retrofit.api
 
 import com.zoltanlorinczi.project_retrofit.api.model.LoginRequestBody
 import com.zoltanlorinczi.project_retrofit.api.model.LoginResponse
-import com.zoltanlorinczi.project_retrofit.api.model.ProductResponse
+import com.zoltanlorinczi.project_retrofit.api.model.ProductsListResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -20,5 +20,5 @@ interface MarketPlaceApiService {
     suspend fun login(@Body request: LoginRequestBody): LoginResponse
 
     @GET(BackendConstants.GET_PRODUCT_URL)
-    suspend fun getProducts(@Header(BackendConstants.HEADER_TOKEN) token: String): ProductResponse
+    suspend fun getProducts(@Header(BackendConstants.HEADER_TOKEN) token: String): ProductsListResponse
 }

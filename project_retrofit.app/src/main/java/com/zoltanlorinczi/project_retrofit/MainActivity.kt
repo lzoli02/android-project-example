@@ -3,10 +3,6 @@ package com.zoltanlorinczi.project_retrofit
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import com.zoltanlorinczi.project_retrofit.api.MarketPlaceRepository
-import com.zoltanlorinczi.project_retrofit.viewmodel.LoginViewModel
-import com.zoltanlorinczi.project_retrofit.viewmodel.LoginViewModelFactory
 import com.zoltanlorinczi.project_retorfit.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

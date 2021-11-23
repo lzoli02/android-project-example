@@ -2,13 +2,13 @@ package com.zoltanlorinczi.project_retrofit.api
 
 import com.zoltanlorinczi.project_retrofit.api.model.LoginRequestBody
 import com.zoltanlorinczi.project_retrofit.api.model.LoginResponse
-import com.zoltanlorinczi.project_retrofit.api.model.ProductResponse
+import com.zoltanlorinczi.project_retrofit.api.model.ProductsListResponse
 
 /**
  * Author:  Zoltan Lorinczi
  * Date:    11/8/2021
  */
-class MarketPlaceRepository() {
+class MarketPlaceRepository {
 
     /**
      * 'suspend' keyword means that this function can be blocking.
@@ -18,7 +18,7 @@ class MarketPlaceRepository() {
         return RetrofitInstance.marketPlaceApiService.login(loginRequestBody)
     }
 
-    suspend fun getProducts(token: String): ProductResponse {
+    suspend fun getProducts(token: String): ProductsListResponse {
         return RetrofitInstance.marketPlaceApiService.getProducts(token)
     }
 }

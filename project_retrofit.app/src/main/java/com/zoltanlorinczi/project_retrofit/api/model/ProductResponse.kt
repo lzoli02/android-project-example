@@ -8,39 +8,39 @@ import com.google.gson.annotations.SerializedName
  * Date:    11/8/2021
  */
 data class ProductResponse(
-    @SerializedName("username")
+    @SerializedName("rating")
     val rating: Double,
 
-    @SerializedName("username")
-    val amount_type: String,
+    @SerializedName("amount_type")
+    val amountType: String,
 
-    @SerializedName("username")
-    val price_type: String,
+    @SerializedName("price_type")
+    val priceType: String,
 
-    @SerializedName("username")
-    val product_id: String,
+    @SerializedName("product_id")
+    val productId: String,
 
     @SerializedName("username")
     val username: String,
 
-    @SerializedName("username")
-    val is_active: Boolean,
+    @SerializedName("is_active")
+    val isActive: Boolean,
 
-    @SerializedName("username")
-    val price_per_unit: String,
+    @SerializedName("price_per_unit")
+    val pricePerUnit: String,
 
-    @SerializedName("username")
+    @SerializedName("units")
     val units: String,
 
-    @SerializedName("username")
+    @SerializedName("description")
     val description: String,
 
-    @SerializedName("username")
+    @SerializedName("title")
     val title: String,
 
-    @SerializedName("username")
+    @SerializedName("images")
     val images: List<Image>,
 
-    @SerializedName("username")
-    val creation_time: Long
+    @SerializedName("creation_time")
+    val creationTime: Int
 )
