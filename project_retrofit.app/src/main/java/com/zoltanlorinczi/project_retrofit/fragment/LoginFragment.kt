@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.zoltanlorinczi.project_retorfit.R
 import com.zoltanlorinczi.project_retrofit.App
 import com.zoltanlorinczi.project_retrofit.api.MarketPlaceRepository
@@ -38,7 +41,7 @@ class LoginFragment : Fragment() {
         val passwordEditText: EditText = view.findViewById(R.id.edittext_password_login_fragment)
         val button: Button = view.findViewById(R.id.button_login_fragment)
 
-        Log.d(TAG, "token = "  + App.sharedPreferences.getStringValue(SharedPreferencesManager.KEY_TOKEN, "Empty token!"))
+        Log.d(TAG, "token = " + App.sharedPreferences.getStringValue(SharedPreferencesManager.KEY_TOKEN, "Empty token!"))
 
         button.setOnClickListener {
             loginViewModel.username = userNameEditText.text.toString()
@@ -48,6 +51,12 @@ class LoginFragment : Fragment() {
 
             loginViewModel.isSuccessful.observe(this.viewLifecycleOwner) {
                 Log.d(TAG, "Logged in successfully = " + it)
+                if (it) {
+//                    val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+//                    val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+//                    fragmentTransaction.replace(R.id.nav_host_fragment, ListFragment()).commit()
+                    findNavController().navigate(R.id.action_loginFragment_to_listFragment)
+                }
             }
         }
 
