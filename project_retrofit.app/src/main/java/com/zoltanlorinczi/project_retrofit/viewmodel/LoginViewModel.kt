@@ -43,7 +43,7 @@ class LoginViewModel(private val repository: MarketPlaceRepository) : ViewModel(
             isSuccessful.value = true
             Log.d(TAG, "LoginViewModel - login response: $result")
         } catch (e: Exception) {
-            Log.d(TAG, "LoginViewModel - login() failed withexception: ${e.message}")
+            Log.d(TAG, "LoginViewModel - login() failed with exception: ${e.message}")
             isSuccessful.value = false
         }
     }

@@ -42,5 +42,5 @@ data class ProductResponse(
     val images: List<Image>,
 
     @SerializedName("creation_time")
-    val creationTime: Int
+    val creationTime: Long
 )
