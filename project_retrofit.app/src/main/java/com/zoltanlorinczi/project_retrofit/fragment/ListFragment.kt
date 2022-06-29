@@ -1,6 +1,7 @@
 package com.zoltanlorinczi.project_retrofit.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,47 +23,51 @@ import com.zoltanlorinczi.project_retrofit.viewmodel.ListViewModelFactory
  */
 class ListFragment : Fragment(R.layout.fragment_list), MarketDataAdapter.OnItemClickListener, MarketDataAdapter.OnItemLongClickListener {
 
-    lateinit var listViewModel: ListViewModel
-    private lateinit var recycler_view: RecyclerView
+    companion object {
+        private val TAG: String? = ListFragment::class.java.canonicalName
+    }
+
+    private var listViewModel: ListViewModel? = null
+
+    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MarketDataAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val factory = ListViewModelFactory(MarketPlaceRepository())
-        listViewModel = ViewModelProvider(this, factory).get(ListViewModel::class.java)
+        listViewModel = ViewModelProvider(this, factory)[ListViewModel::class.java]
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-        recycler_view = view.findViewById(R.id.recycler_view)
-        setupRecyclerView()
-        listViewModel.products.observe(viewLifecycleOwner) {
-            adapter.setData(listViewModel.products.value as ArrayList<ProductResponse>)
-            adapter.notifyDataSetChanged()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_list, container, false).apply {
+            initViews(this)
         }
 
-        return view
-    }
-
-    private fun setupRecyclerView() {
-        adapter = MarketDataAdapter(ArrayList<ProductResponse>(), this.requireContext(), this, this)
-        recycler_view.adapter = adapter
-        recycler_view.layoutManager = LinearLayoutManager(this.context)
-        recycler_view.addItemDecoration(
+    private fun initViews(view: View) {
+        recyclerView = view.findViewById(R.id.recycler_view)
+        adapter = MarketDataAdapter(ArrayList(), this, this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        recyclerView.addItemDecoration(
             DividerItemDecoration(
                 activity,
                 DividerItemDecoration.VERTICAL
             )
         )
-        recycler_view.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(true)
+
+
+        listViewModel?.products?.observe(viewLifecycleOwner) {
+            adapter.updateData(listViewModel?.products?.value as ArrayList<ProductResponse>)
+        }
     }
 
     override fun onItemClick(position: Int) {
-//        TODO("Not yet implemented")
+        Log.d(TAG, "onItemClick called on position: $position")
     }
 
     override fun onItemLongClick(position: Int) {
-//        TODO("Not yet implemented")
+        Log.d(TAG, "onItemLongClick called on position: $position")
     }
 }

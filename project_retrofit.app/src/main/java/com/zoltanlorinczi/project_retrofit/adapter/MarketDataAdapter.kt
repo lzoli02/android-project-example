@@ -1,6 +1,5 @@
 package com.zoltanlorinczi.project_retrofit.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +15,31 @@ import com.zoltanlorinczi.project_retrofit.api.model.ProductResponse
  */
 class MarketDataAdapter(
     private var list: ArrayList<ProductResponse>,
-    private val context: Context,
-    private val listener: OnItemClickListener,
-    private val listener2: OnItemLongClickListener
-) :
-    RecyclerView.Adapter<MarketDataAdapter.DataViewHolder>() {
+    private val clickListener: OnItemClickListener,
+    private val longClickListener: OnItemLongClickListener
+) : RecyclerView.Adapter<MarketDataAdapter.ViewHolder>() {
+
+    // 2. Called only a few times = number of items on screen + a few more ones
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+
+
+    // 3. Called many times, when we scroll the list
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val currentItem = list[position]
+
+        holder.nameTextView.text = currentItem.title
+        holder.priceTextView.text = currentItem.pricePerUnit
+        holder.sellerTextView.text = currentItem.username
+    }
+
+    override fun getItemCount() = list.size
+
+    // Update the list
+    fun updateData(newList: ArrayList<ProductResponse>) {
+        list = newList
+        notifyItemRangeChanged(0, itemCount)
+    }
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -31,11 +50,11 @@ class MarketDataAdapter(
     }
 
     // 1. user defined ViewHolder type - Embedded class!
-    inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener, View.OnLongClickListener {
-        val textView_name: TextView = itemView.findViewById(R.id.textView_name_item_layout)
-        val textView_price: TextView = itemView.findViewById(R.id.textView_price_item_layout)
-        val textView_seller: TextView = itemView.findViewById(R.id.textView_seller_item_layout)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
+
+        val nameTextView: TextView = itemView.findViewById(R.id.textView_name_item_layout)
+        val priceTextView: TextView = itemView.findViewById(R.id.textView_price_item_layout)
+        val sellerTextView: TextView = itemView.findViewById(R.id.textView_seller_item_layout)
         val imageView: ImageView = itemView.findViewById(R.id.imageView_item_layout)
 
         init {
@@ -43,44 +62,13 @@ class MarketDataAdapter(
             itemView.setOnLongClickListener(this)
         }
 
-        override fun onClick(p0: View?) {
-            val currentPosition = this.adapterPosition
-            listener.onItemClick(currentPosition)
-
+        override fun onClick(view: View?) {
+            clickListener.onItemClick(adapterPosition)
         }
 
         override fun onLongClick(p0: View?): Boolean {
-            val currentPosition = this.adapterPosition
-            listener2.onItemLongClick(currentPosition)
+            longClickListener.onItemLongClick(adapterPosition)
             return true
         }
-    }
-
-    // 2. Called only a few times = number of items on screen + a few more ones
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return DataViewHolder(itemView)
-    }
-
-
-    // 3. Called many times, when we scroll the list
-    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
-        val currentItem = list[position]
-
-        holder.textView_name.text = currentItem.title
-        holder.textView_price.text = currentItem.pricePerUnit
-        holder.textView_seller.text = currentItem.username
-
-//        Glide.with(this.context)
-//            .load(R.drawable.ic_user)
-//            .override(200, 200)
-//            .into(holder.imageView);
-    }
-
-    override fun getItemCount() = list.size
-
-    // Update the list
-    fun setData(newList: ArrayList<ProductResponse>) {
-        list = newList
     }
 }

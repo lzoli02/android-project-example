@@ -7,11 +7,14 @@ import com.zoltanlorinczi.project_retorfit.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    val TAG: String = javaClass.simpleName
+    companion object {
+        private val TAG: String? = MainActivity::class.java.canonicalName
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "onCreate() called!")
         super.onCreate(savedInstanceState)
+
         val binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }

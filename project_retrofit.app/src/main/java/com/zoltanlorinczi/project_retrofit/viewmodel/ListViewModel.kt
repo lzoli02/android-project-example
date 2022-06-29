@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
  */
 class ListViewModel(private val repository: MarketPlaceRepository) : ViewModel() {
 
-    val TAG: String = javaClass.simpleName
+    companion object {
+        private val TAG: String? = ListViewModel::class.java.canonicalName
+    }
 
     var products: MutableLiveData<List<ProductResponse>> = MutableLiveData()
 
@@ -24,14 +26,14 @@ class ListViewModel(private val repository: MarketPlaceRepository) : ViewModel()
         getProducts()
     }
 
-    fun getProducts() {
+    private fun getProducts() {
         viewModelScope.launch {
             try {
                 val token: String? = App.sharedPreferences.getStringValue(SharedPreferencesManager.KEY_TOKEN, "Empty token!")
                 val result = token?.let { repository.getProducts(it) }
                 products.value = result?.products
             } catch (e: Exception) {
-                Log.d(TAG, "ListViewModel - getProducts() failed with exception: ${e.message}")
+                Log.e(TAG, "ListViewModel - getProducts() failed with exception: ${e.message}")
             }
         }
     }

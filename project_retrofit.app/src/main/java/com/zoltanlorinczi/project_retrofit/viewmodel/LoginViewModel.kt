@@ -18,16 +18,15 @@ import kotlinx.coroutines.withContext
  */
 class LoginViewModel(private val repository: MarketPlaceRepository) : ViewModel() {
 
-    val TAG: String = javaClass.simpleName
-
-    lateinit var username: String
-    lateinit var password: String
+    companion object {
+        private val TAG: String? = LoginViewModel::class.java.canonicalName
+    }
 
     var token: MutableLiveData<String> = MutableLiveData()
     var isSuccessful: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun login() {
-        val requestBody = LoginRequestBody(username, password)
+    fun login(userName: String, password: String) {
+        val requestBody = LoginRequestBody(userName, password)
         viewModelScope.launch {
             executeLogin(requestBody)
         }
@@ -43,7 +42,7 @@ class LoginViewModel(private val repository: MarketPlaceRepository) : ViewModel(
             isSuccessful.value = true
             Log.d(TAG, "LoginViewModel - login response: $result")
         } catch (e: Exception) {
-            Log.d(TAG, "LoginViewModel - login() failed with exception: ${e.message}")
+            Log.e(TAG, "LoginViewModel - login() failed with exception: ${e.message}")
             isSuccessful.value = false
         }
     }
