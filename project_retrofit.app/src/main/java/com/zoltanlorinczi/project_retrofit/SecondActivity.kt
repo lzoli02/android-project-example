@@ -1,21 +1,25 @@
 package com.zoltanlorinczi.project_retrofit
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.zoltanlorinczi.project_retorfit.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.zoltanlorinczi.project_retorfit.databinding.ActivitySecondBinding
 
-class MainActivity : AppCompatActivity() {
+/**
+ * Author:  Zoltan Lorinczi
+ * Date:    7/4/2022
+ */
+class SecondActivity : AppCompatActivity() {
 
     companion object {
-        private val TAG: String? = MainActivity::class.java.canonicalName
+        private val TAG: String? = SecondActivity::class.java.canonicalName
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate() called!")
 
-        val binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        val binding: ActivitySecondBinding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 

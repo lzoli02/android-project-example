@@ -6,65 +6,25 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <TextView
-    android:id="@+id/textView_login_fragment"
+  <Button
+    android:id="@+id/button_open_list"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="64dp"
-    android:text="Log in"
-    android:textSize="20sp"
+    android:text="Go to list"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.27"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"/>
 
-  <EditText
-    android:id="@+id/edittext_name_login_fragment"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="64dp"
-    android:ems="10"
-    android:hint="Name"
-    android:inputType="textPersonName"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.497"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView_login_fragment"/>
-
-  <EditText
-    android:id="@+id/edittext_password_login_fragment"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="64dp"
-    android:ems="10"
-    android:hint="Password"
-    android:inputType="textPassword"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.497"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/edittext_name_login_fragment"/>
-
   <Button
-    android:id="@+id/button_login_fragment"
+    android:id="@+id/button_open_second_activity"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="64dp"
-    android:text="Log in"
+    android:text="Go to second activity"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.498"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/edittext_password_login_fragment"/>
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.65"/>
 
-  <ProgressBar
-    android:id="@+id/progress_circular"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="64dp"
-    android:textSize="20sp"
-    android:textColor="@color/colorRed"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.498"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/button_login_fragment"
-    android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

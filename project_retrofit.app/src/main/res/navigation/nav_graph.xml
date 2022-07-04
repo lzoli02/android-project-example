@@ -14,6 +14,10 @@
     <action
       android:id="@+id/action_loginFragment_to_listFragment"
       app:destination="@id/listFragment"/>
+
+    <action
+      android:id="@+id/action_loginFragment_to_second_activity"
+      app:destination="@id/secondActivity"/>
   </fragment>
 
   <fragment
@@ -22,4 +26,10 @@
     android:label="ListFragment"
     tools:layout="@layout/fragment_list">
   </fragment>
+
+  <activity
+    android:id="@+id/secondActivity"
+    android:name="com.zoltanlorinczi.project_retrofit.SecondActivity"
+    android:label="activity_second"
+    tools:layout="@layout/activity_second" />
 </navigation>

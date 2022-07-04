@@ -2,7 +2,6 @@ package com.zoltanlorinczi.project_retrofit
 
 import android.app.Application
 import android.util.Log
-import com.zoltanlorinczi.project_retrofit.manager.SharedPreferencesManager
 
 /**
  * Base class of Android app, containing components like Activities and Services.
@@ -16,13 +15,10 @@ class App : Application() {
 
     companion object {
         private val TAG: String? = App::class.java.canonicalName
-
-        lateinit var sharedPreferences: SharedPreferencesManager
     }
 
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "onCreate() called!")
-        sharedPreferences = SharedPreferencesManager(applicationContext)
     }
 }
