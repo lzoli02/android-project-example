@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zoltanlorinczi.project_retrofit.App
-import com.zoltanlorinczi.project_retrofit.api.MarketPlaceRepository
+import com.zoltanlorinczi.project_retrofit.api.ThreeTrackerRepository
 import com.zoltanlorinczi.project_retrofit.api.model.LoginRequestBody
 import com.zoltanlorinczi.project_retrofit.manager.SharedPreferencesManager
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
  * Author:  Zoltan Lorinczi
  * Date:    11/8/2021
  */
-class LoginViewModel(private val repository: MarketPlaceRepository) : ViewModel() {
+class LoginViewModel(private val repository: ThreeTrackerRepository) : ViewModel() {
 
     val TAG: String = javaClass.simpleName
 
@@ -35,13 +35,23 @@ class LoginViewModel(private val repository: MarketPlaceRepository) : ViewModel(
 
     private suspend fun executeLogin(requestBody: LoginRequestBody) {
         try {
-            val result = withContext(Dispatchers.IO) {
+            val response = withContext(Dispatchers.IO) {
                 repository.login(requestBody)
             }
-            token.value = result.token
-            App.sharedPreferences.putStringValue(SharedPreferencesManager.KEY_TOKEN, result.token)
-            isSuccessful.value = true
-            Log.d(TAG, "LoginViewModel - login response: $result")
+
+            if (response.isSuccessful) {
+                Log.d(TAG, "Login response: ${response.body()}")
+
+                val responseToken = response.body()?.token
+                responseToken?.let {
+                    token.value = it
+                    App.sharedPreferences.putStringValue(SharedPreferencesManager.KEY_TOKEN, it)
+                    isSuccessful.value = true
+                }
+            } else {
+                Log.d(TAG, "Login error response: ${response.message()}")
+                isSuccessful.value = false
+            }
         } catch (e: Exception) {
             Log.d(TAG, "LoginViewModel - login() failed with exception: ${e.message}")
             isSuccessful.value = false

@@ -1,6 +1,6 @@
 
 import com.zoltanlorinczi.project_retrofit.api.BackendConstants
-import com.zoltanlorinczi.project_retrofit.api.MarketPlaceApiService
+import com.zoltanlorinczi.project_retrofit.api.UserApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -21,7 +21,7 @@ object RetrofitInstance {
      * Will not be initialized unless you use it!
      * It is initialized only once. Next time when you use it, you get the value from cache memory.
      */
-    val marketPlaceApiService: MarketPlaceApiService by lazy {
-        retrofit.create(MarketPlaceApiService::class.java)
+    val USER_API_SERVICE: UserApiService by lazy {
+        retrofit.create(UserApiService::class.java)
     }
 }

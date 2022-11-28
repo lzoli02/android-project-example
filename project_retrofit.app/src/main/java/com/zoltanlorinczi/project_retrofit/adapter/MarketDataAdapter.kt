@@ -8,14 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zoltanlorinczi.project_retorfit.R
-import com.zoltanlorinczi.project_retrofit.api.model.ProductResponse
+import com.zoltanlorinczi.project_retrofit.api.model.TaskResponse
 
 /**
  * Author:  Zoltan Lorinczi
  * Date:    12/6/2021
  */
 class MarketDataAdapter(
-    private var list: ArrayList<ProductResponse>,
+    private var list: ArrayList<TaskResponse>,
     private val context: Context,
     private val listener: OnItemClickListener,
     private val listener2: OnItemLongClickListener
@@ -68,8 +68,8 @@ class MarketDataAdapter(
         val currentItem = list[position]
 
         holder.textView_name.text = currentItem.title
-        holder.textView_price.text = currentItem.pricePerUnit
-        holder.textView_seller.text = currentItem.username
+        //holder.textView_price.text = currentItem.pricePerUnit
+        //holder.textView_seller.text = currentItem.username
 
 //        Glide.with(this.context)
 //            .load(R.drawable.ic_user)
@@ -80,7 +80,7 @@ class MarketDataAdapter(
     override fun getItemCount() = list.size
 
     // Update the list
-    fun setData(newList: ArrayList<ProductResponse>) {
+    fun setData(newList: ArrayList<TaskResponse>) {
         list = newList
     }
 }

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zoltanlorinczi.project_retorfit.R
 import com.zoltanlorinczi.project_retrofit.App
-import com.zoltanlorinczi.project_retrofit.api.MarketPlaceRepository
+import com.zoltanlorinczi.project_retrofit.api.ThreeTrackerRepository
 import com.zoltanlorinczi.project_retrofit.manager.SharedPreferencesManager
 import com.zoltanlorinczi.project_retrofit.viewmodel.LoginViewModel
 import com.zoltanlorinczi.project_retrofit.viewmodel.LoginViewModelFactory
@@ -22,24 +22,37 @@ import com.zoltanlorinczi.project_retrofit.viewmodel.LoginViewModelFactory
  * Date:    11/12/2021
  */
 class LoginFragment : Fragment() {
-    val TAG: String = javaClass.simpleName
+
+    companion object {
+        private val TAG: String = javaClass.simpleName
+    }
 
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val factory = LoginViewModelFactory(MarketPlaceRepository())
-        loginViewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
+        val factory = LoginViewModelFactory(ThreeTrackerRepository())
+        loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
         val userNameEditText: EditText = view.findViewById(R.id.edittext_name_login_fragment)
         val passwordEditText: EditText = view.findViewById(R.id.edittext_password_login_fragment)
         val button: Button = view.findViewById(R.id.button_login_fragment)
 
-        Log.d(TAG, "token = " + App.sharedPreferences.getStringValue(SharedPreferencesManager.KEY_TOKEN, "Empty token!"))
+        Log.d(
+            TAG,
+            "token = " + App.sharedPreferences.getStringValue(
+                SharedPreferencesManager.KEY_TOKEN,
+                "Empty token!"
+            )
+        )
 
         button.setOnClickListener {
             loginViewModel.username = userNameEditText.text.toString()
@@ -48,7 +61,7 @@ class LoginFragment : Fragment() {
             loginViewModel.login()
 
             loginViewModel.isSuccessful.observe(this.viewLifecycleOwner) {
-                Log.d(TAG, "Logged in successfully = " + it)
+                Log.d(TAG, "Logged in successfully = $it")
                 if (it) {
                     findNavController().navigate(R.id.action_loginFragment_to_listFragment)
                 }
