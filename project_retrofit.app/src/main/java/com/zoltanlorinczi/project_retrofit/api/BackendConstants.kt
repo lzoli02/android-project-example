@@ -18,7 +18,7 @@ object BackendConstants {
     const val GET_TASKS_URL = "task/getTasks"
 
     /**
-     * Headers.
+     * Header values.
      */
     const val HEADER_TOKEN = "token"
 }

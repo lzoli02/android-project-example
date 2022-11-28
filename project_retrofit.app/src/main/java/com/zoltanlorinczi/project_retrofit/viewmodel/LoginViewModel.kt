@@ -18,15 +18,14 @@ import kotlinx.coroutines.withContext
  */
 class LoginViewModel(private val repository: ThreeTrackerRepository) : ViewModel() {
 
-    val TAG: String = javaClass.simpleName
-
-    lateinit var username: String
-    lateinit var password: String
+    companion object {
+        private val TAG: String = javaClass.simpleName
+    }
 
     var token: MutableLiveData<String> = MutableLiveData()
     var isSuccessful: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun login() {
+    fun login(username: String, password: String) {
         val requestBody = LoginRequestBody(username, password)
         viewModelScope.launch {
             executeLogin(requestBody)

@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
  */
 class TasksViewModel(private val repository: ThreeTrackerRepository) : ViewModel() {
 
-    val TAG: String = javaClass.simpleName
+    companion object {
+        private val TAG: String = javaClass.simpleName
+    }
 
     var products: MutableLiveData<List<TaskResponse>> = MutableLiveData()
 
@@ -28,8 +30,8 @@ class TasksViewModel(private val repository: ThreeTrackerRepository) : ViewModel
         viewModelScope.launch {
             try {
                 val token: String? = App.sharedPreferences.getStringValue(
-                    SharedPreferencesManager.KEY_TOKEN,
-                    "Empty token!"
+                        SharedPreferencesManager.KEY_TOKEN,
+                        "Empty token!"
                 )
                 val response = token?.let {
                     repository.getTasks(it)

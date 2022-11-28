@@ -55,10 +55,10 @@ class LoginFragment : Fragment() {
         )
 
         button.setOnClickListener {
-            loginViewModel.username = userNameEditText.text.toString()
-            loginViewModel.password = passwordEditText.text.toString()
+            val username = userNameEditText.text.toString()
+            val password = passwordEditText.text.toString()
 
-            loginViewModel.login()
+            loginViewModel.login(username, password)
 
             loginViewModel.isSuccessful.observe(this.viewLifecycleOwner) {
                 Log.d(TAG, "Logged in successfully = $it")
