@@ -1,6 +1,7 @@
 package com.zoltanlorinczi.project_retrofit.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,12 @@ import com.zoltanlorinczi.project_retrofit.api.model.TaskResponse
  * Date:    12/6/2021
  */
 class TasksListAdapter(
-    private var list: ArrayList<TaskResponse>,
-    private val context: Context,
-    private val listener: OnItemClickListener,
-    private val listener2: OnItemLongClickListener
+        private var list: ArrayList<TaskResponse>,
+        private val context: Context,
+        private val listener: OnItemClickListener,
+        private val listener2: OnItemLongClickListener
 ) :
-    RecyclerView.Adapter<TasksListAdapter.DataViewHolder>() {
+        RecyclerView.Adapter<TasksListAdapter.DataViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -31,8 +32,10 @@ class TasksListAdapter(
 
     // 1. user defined ViewHolder type - Embedded class!
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener, View.OnLongClickListener {
+            View.OnClickListener, View.OnLongClickListener {
         val taskTitleTextView: TextView = itemView.findViewById(R.id.task_title_view)
+        val taskDescriptionTextView: TextView = itemView.findViewById(R.id.task_description_view)
+        val taskPriorityTextView: TextView = itemView.findViewById(R.id.task_priority_view)
 
         init {
             itemView.setOnClickListener(this)
@@ -64,11 +67,18 @@ class TasksListAdapter(
         val currentItem = list[position]
 
         holder.taskTitleTextView.text = currentItem.title
-        //holder.textView_price.text = currentItem.pricePerUnit
-        //holder.textView_seller.text = currentItem.username
+        holder.taskDescriptionTextView.text = currentItem.description
+
+        if (currentItem.priority == 0) {
+            holder.taskPriorityTextView.setBackgroundColor(Color.RED)
+        } else if (currentItem.priority == 1) {
+            holder.taskPriorityTextView.setBackgroundColor(Color.YELLOW)
+        } else if (currentItem.priority == 2) {
+            holder.taskPriorityTextView.setBackgroundColor(Color.GREEN)
+        }
 
 //        Glide.with(this.context)
-//            .load(R.drawable.ic_user)
+//            .load(R.drawable.ic_launcher_background)
 //            .override(200, 200)
 //            .into(holder.imageView);
     }
